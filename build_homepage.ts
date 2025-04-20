@@ -1,7 +1,6 @@
 import { parse } from "https://deno.land/std@0.203.0/yaml/mod.ts";
 
 const CONFIG_URL = "https://github.com/qinyuanchun03/fast-webstack1/raw/refs/heads/main/config.yaml";
-const OUTPUT_INDEX = "./index.html";
 
 const resp = await fetch(CONFIG_URL);
 const yamlText = await resp.text();
@@ -73,6 +72,4 @@ const indexHtml = `<!DOCTYPE html>
 </html>
 `;
 
-await Deno.writeTextFile(OUTPUT_INDEX, indexHtml);
-
-console.log("静态首页已生成:", OUTPUT_INDEX); 
+console.log(indexHtml); 
