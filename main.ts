@@ -2,10 +2,10 @@ import { serve } from "https://deno.land/std@0.203.0/http/server.ts";
 import { parse } from "https://deno.land/std@0.203.0/yaml/mod.ts";
 import yaml from "https://esm.sh/js-yaml@4.1.0";
 
-const CONFIG_URL = "https://github.com/qinyuanchun03/fast-webstack1/raw/refs/heads/main/config.yaml";
-const HTML_URL = "https://github.com/qinyuanchun03/fast-webstack1/raw/refs/heads/main/index.html";
-const CSS_URL = "https://github.com/qinyuanchun03/fast-webstack1/raw/refs/heads/main/static/style.css";
-const JS_URL  = "https://github.com/qinyuanchun03/fast-webstack1/raw/refs/heads/main/static/script.js";
+const HTML_URL = "https://cdn.jsdelivr.net/gh/qinyuanchun03/fast-webstack1/index.html";
+const CSS_URL = "https://cdn.jsdelivr.net/gh/qinyuanchun03/fast-webstack1/static/style.css";
+const JS_URL  = "https://cdn.jsdelivr.net/gh/qinyuanchun03/fast-webstack1/static/script.js";
+const CONFIG_URL = "https://cdn.jsdelivr.net/gh/qinyuanchun03/fast-webstack1/config.yaml";
 
 function renderCards(config: any) {
   return config.categories.map((cat: any) => `
@@ -76,13 +76,13 @@ serve(async (req) => {
     // 4. 注入 CSS、JS、卡片内容
     html = html.replace(
       "</head>",
-      `<link rel="stylesheet" href="${CSS_URL}" />\n</head>`
+      `<link rel=\"stylesheet\" href=\"${CSS_URL}\" />\n</head>`
     );
     html = html.replace(
       "</body>",
-      `<script src="${JS_URL}"></script>\n</body>`
+      `<script src=\"${JS_URL}\"></script>\n</body>`
     );
-    html = html.replace('<div id="cards"></div>', `<div id="cards">${cardsHtml}</div>`);
+    html = html.replace('<div id=\"cards\"></div>', `<div id=\"cards\">${cardsHtml}</div>`);
 
     return new Response(html, {
       headers: { "Content-Type": "text/html; charset=utf-8" },
