@@ -9,11 +9,16 @@
 <body>
   <header>
     <h1>高质量平台导航</h1>
-    <input id="search" placeholder="搜索平台/用途/分类..." autocomplete="off" />
-    <nav id="category-nav"></nav>
+    <div class="search-bar">
+      <input id="search" placeholder="搜索平台/用途/分类..." autocomplete="off" />
+      <nav id="category-nav"></nav>
+    </div>
   </header>
   <main>
-    <div id="cards"></div>
+    <section class="category-list">
+      <!-- 分类区块由服务端/前端渲染插入 -->
+      <div id="cards"></div>
+    </section>
   </main>
   <footer>
     <small>Powered by Deno · 极简导航</small>
