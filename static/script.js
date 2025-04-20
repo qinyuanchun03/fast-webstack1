@@ -94,6 +94,8 @@ function renderCategoryNav(categories) {
 document.getElementById('search').addEventListener('input', renderCards);
 
 document.addEventListener('DOMContentLoaded', () => {
+  fixCardsWidth();
+  showWelcome();
   staticLinks = extractStaticLinks();
   renderCategoryNav();
 });
@@ -129,4 +131,25 @@ fetchData().then(data => {
   allData = data;
   renderCategoryNav(data.categories);
   renderCards();
-}); 
+});
+
+// 自动修正布局：确保.cards宽度自适应父容器
+function fixCardsWidth() {
+  document.querySelectorAll('.cards').forEach(cards => {
+    cards.style.width = '100%';
+    cards.style.maxWidth = '1200px';
+    cards.style.margin = '0 auto';
+  });
+}
+
+// 欢迎动画
+function showWelcome() {
+  if (sessionStorage.getItem('welcomed')) return;
+  const welcome = document.createElement('div');
+  welcome.style = 'position:fixed;top:0;left:0;right:0;bottom:0;z-index:9999;background:rgba(255,255,255,0.96);display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:1.5em;color:#0077cc;transition:opacity .5s;';
+  welcome.innerHTML = '<div style="font-size:2em;font-weight:700;margin-bottom:1em;">🎉 欢迎来到高质量平台导航！</div><div style="font-size:1.1em;">发现优质工具与资源，提升你的效率与体验。</div>';
+  document.body.appendChild(welcome);
+  setTimeout(() => { welcome.style.opacity = 0; }, 1800);
+  setTimeout(() => { welcome.remove(); }, 2300);
+  sessionStorage.setItem('welcomed', '1');
+} 
