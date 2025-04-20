@@ -12,8 +12,8 @@ header {
 }
 header h1 {
   margin: 0 0 1em 0;
-  font-size: 2em;
-  font-weight: 600;
+  font-size: 2.3em;
+  font-weight: 700;
   letter-spacing: 2px;
 }
 #search {
@@ -21,20 +21,21 @@ header h1 {
   max-width: 420px;
   padding: 0.8em 1em;
   font-size: 1.1em;
-  border: 1px solid #e0e0e0;
+  border: 1.5px solid #e0e0e0;
   border-radius: 8px;
   box-sizing: border-box;
-  margin-bottom: 1em;
+  margin-bottom: 1.5em;
   background: #f7f8fa;
   transition: border 0.2s;
+  outline: none;
 }
-#search:focus { border: 1.5px solid #0077cc; outline: none; }
+#search:focus { border: 1.5px solid #0077cc; }
 #category-nav {
   display: flex;
   flex-wrap: wrap;
   gap: 0.5em;
   justify-content: center;
-  margin-bottom: 1.5em;
+  margin-bottom: 2em;
 }
 #category-nav button {
   background: #f0f2f5;
@@ -55,11 +56,39 @@ main {
   margin: 0 auto;
   padding: 2em 1em 1em 1em;
 }
-#cards {
+.category-block {
+  margin: 2.5em auto;
+  background: #fff;
+  border-radius: 14px;
+  box-shadow: 0 2px 12px #0001;
+  padding: 2em 1.5em 1.5em 1.5em;
+  max-width: 1200px;
+}
+.category-block h2 {
+  margin: 0 0 1.2em 0;
+  font-size: 1.7em;
+  color: #0077cc;
+  border-left: 5px solid #0077cc;
+  padding-left: 0.7em;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+.subcategory-block {
+  margin-bottom: 2em;
+}
+.subcategory-block h3 {
+  margin: 0 0 0.7em 0;
+  font-size: 1.15em;
+  color: #444;
+  font-weight: 500;
+  padding-left: 0.5em;
+  border-left: 3px solid #e0e0e0;
+}
+.cards {
   display: flex;
   flex-wrap: wrap;
   gap: 1.5em;
-  justify-content: flex-start;
+  justify-content: center;
 }
 .card {
   background: #fff;
@@ -72,6 +101,7 @@ main {
   flex-direction: column;
   gap: 0.5em;
   transition: box-shadow .2s, transform .2s;
+  align-items: flex-start;
 }
 .card:hover {
   box-shadow: 0 6px 24px #0077cc22;
@@ -108,12 +138,14 @@ footer {
   padding: 2em 0 1em 0;
 }
 @media (max-width: 900px) {
-  #cards { justify-content: center; }
+  main { padding: 1em 0.2em; }
+  .cards { justify-content: center; }
   .card { width: 95vw; max-width: 350px; }
 }
 @media (max-width: 600px) {
   header { padding: 1.2em 0.5em 0.5em 0.5em; }
   main { padding: 1em 0.2em; }
-  #cards { gap: 1em; }
+  .category-block { padding: 1em 0.5em; }
+  .cards { gap: 1em; }
   .card { padding: 1em 0.7em; }
 } 
