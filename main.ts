@@ -2,15 +2,16 @@ import { serve } from "https://deno.land/std@0.203.0/http/server.ts";
 import { parse } from "https://deno.land/std@0.203.0/yaml/mod.ts";
 import yaml from "https://esm.sh/js-yaml@4.1.0";
 
-const HTML_URL = "https://cdn.jsdelivr.net/gh/qinyuanchun03/fast-webstack1/index.html";
-const CSS_URL = "https://cdn.jsdelivr.net/gh/qinyuanchun03/fast-webstack1/static/style.css";
-const JS_URL  = "https://cdn.jsdelivr.net/gh/qinyuanchun03/fast-webstack1/static/script.js";
-const CONFIG_URL = "https://cdn.jsdelivr.net/gh/qinyuanchun03/fast-webstack1/config.yaml";
+const HTML_URL = "https://unpkg.com/fast-webstack1@latest/index.html";
+const CSS_URL = "https://unpkg.com/fast-webstack1@latest/static/style.css";
+const JS_URL  = "https://unpkg.com/fast-webstack1@latest/static/script.js";
+const CONFIG_URL = "https://unpkg.com/fast-webstack1@latest/config.yaml";
+const LOGO_CDN = "https://unpkg.com/fast-webstack1@latest/images/favicons/";
 
 function renderCards(sub: any) {
   return `<div class="cards">${sub.links.map((link: any) => `
     <div class="card">
-      ${link.logo ? `<img class="logo" src="https://cdn.jsdelivr.net/gh/qinyuanchun03/fast-webstack1/images/favicons/${encodeURIComponent(link.logo)}" alt="logo" />` : ''}
+      ${link.logo ? `<img class="logo" src="${LOGO_CDN}${encodeURIComponent(link.logo)}" alt="logo" />` : ''}
       <a href="${link.url}" target="_blank">${link.title}</a>
       <div class="desc">${link.description || ''}</div>
     </div>
