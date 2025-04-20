@@ -7,26 +7,30 @@ const CSS_URL = "https://cdn.jsdelivr.net/gh/qinyuanchun03/fast-webstack1/static
 const JS_URL  = "https://cdn.jsdelivr.net/gh/qinyuanchun03/fast-webstack1/static/script.js";
 const CONFIG_URL = "https://cdn.jsdelivr.net/gh/qinyuanchun03/fast-webstack1/config.yaml";
 
-function renderCards(config: any) {
-  return config.categories.map((cat: any) => `
-    <section class="category-block">
-      <h2>${cat.name}</h2>
-      ${cat.subcategories.map((sub: any) => `
-        <div class="subcategory-block">
-          <h3>${sub.name}</h3>
-          <div class="cards">
-            ${sub.links.map((link: any) => `
-              <div class="card">
-                ${link.logo ? `<img class="logo" src="/${link.logo}" alt="logo" />` : ''}
-                <a href="${link.url}" target="_blank">${link.title}</a>
-                <div class="desc">${link.description || ''}</div>
-              </div>
-            `).join('')}
-          </div>
-        </div>
-      `).join('')}
-    </section>
-  `).join('\n');
+function renderCards(sub: any) {
+  return `<div class="cards">${sub.links.map((link: any) => `
+    <div class="card">
+      ${link.logo ? `<img class="logo" src="https://cdn.jsdelivr.net/gh/qinyuanchun03/fast-webstack1/images/favicons/${encodeURIComponent(link.logo)}" alt="logo" />` : ''}
+      <a href="${link.url}" target="_blank">${link.title}</a>
+      <div class="desc">${link.description || ''}</div>
+    </div>
+  `).join('')}</div>`;
+}
+
+function renderCategoryBlock(cat: any) {
+  return `<div class="category-block">
+    <h2>${cat.name}</h2>
+    ${cat.subcategories.map((sub: any) => `
+      <div class="subcategory-block">
+        <h3>${sub.name}</h3>
+        ${renderCards(sub)}
+      </div>
+    `).join('')}
+  </div>`;
+}
+
+function renderCategoryList(config: any) {
+  return config.categories.map(renderCategoryBlock).join('\n');
 }
 
 async function getConfig() {
@@ -70,10 +74,10 @@ serve(async (req) => {
     const yamlText = await configResp.text();
     const config = yaml.load(yamlText) as any;
 
-    // 3. 生成卡片 HTML
-    const cardsHtml = renderCards(config);
+    // 3. 生成分类区块 HTML
+    const categoryListHtml = renderCategoryList(config);
 
-    // 4. 注入 CSS、JS、卡片内容
+    // 4. 注入 CSS、JS、分类区块内容
     html = html.replace(
       "</head>",
       `<link rel=\"stylesheet\" href=\"${CSS_URL}\" />\n</head>`
@@ -82,7 +86,8 @@ serve(async (req) => {
       "</body>",
       `<script src=\"${JS_URL}\"></script>\n</body>`
     );
-    html = html.replace('<div id=\"cards\"></div>', `<div id=\"cards\">${cardsHtml}</div>`);
+    // 用正则替换整个 category-list 区块
+    html = html.replace(/<section class=\"category-list\">[\s\S]*?<\/section>/, `<section class=\"category-list\">${categoryListHtml}</section>`);
 
     return new Response(html, {
       headers: { "Content-Type": "text/html; charset=utf-8" },
