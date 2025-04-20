@@ -1,6 +1,6 @@
 import { parse } from "https://deno.land/std@0.203.0/yaml/mod.ts";
 
-const CONFIG_URL = "https://github.com/qinyuanchun03/fast-webstack/raw/refs/heads/main/deno-webstack/config.yaml";
+const CONFIG_URL = "https://github.com/qinyuanchun03/fast-webstack1/raw/refs/heads/main/config.yaml";
 const INDEX_TEMPLATE = "./static/index.html";
 const OUTPUT_INDEX = "./index.html";
 
